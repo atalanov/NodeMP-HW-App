@@ -1,0 +1,9 @@
+--help(-h) - current help text
+--action(-a) - action to run
+    Available values: 
+    bundle-css - make bundle on given --path
+    io - make your input uppercased
+    transform - read csv --file and show it in console
+    transform-file - convert csv file to json file on given --file location
+--file(-f) - see actions transform, transform-file
+--path - see action bundle-css
