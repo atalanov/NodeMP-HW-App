@@ -9,7 +9,7 @@ export class Importer{
         return readFileAsync(path,'utf8').then(ParseToJSON);
     }
     importSync(path){
-        var data = fs.readFileSync(path,'utf8')
+        var data = fs.readFileSync(path,'utf8');
         return ParseToJSON(data);
     }
 }
