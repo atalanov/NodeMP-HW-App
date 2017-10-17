@@ -11,9 +11,9 @@ var importer = new Importer();
 
 /*1. dirwatcher */
 /*dirWatcher.watch("data");
-dirWatcher.subscribe("dirwatcher:changed",importer.import);*/
+dirWatcher.subscribe(importer.import);*/
 
-/*2. Import
+/*2. Import*/
 /*importer.import("data/1.csv").then(function(data){
     console.log(data);
 });*/
