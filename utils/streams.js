@@ -8,13 +8,14 @@ if(process.argv.length>2){
         alias: {
             "help":"h",
             "action":"a",
-            "file":"f"
+            "file":"f",
+            "path":"p"
         },
         default: {
 
         },
         unknown: (arg)=>{
-            if(["help","h","action","a","file","f","path"].indexOf(arg)==-1){
+            if(["help","h","action","a","file","f","path","p"].indexOf(arg)==-1){
                 console.error("Unknown command "+arg);
                 return false;
             }
