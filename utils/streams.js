@@ -7,13 +7,15 @@ if(process.argv.length>2){
     var args = parseArgs(process.argv.slice(2),{
         alias: {
             "help":"h",
-            "action":"a"
+            "action":"a",
+            "file":"f",
+            "path":"p"
         },
         default: {
 
         },
         unknown: (arg)=>{
-            if(["help","h","action","a"].indexOf(arg)==-1){
+            if(["help","h","action","a","file","f","path","p"].indexOf(arg)==-1){
                 console.error("Unknown command "+arg);
                 return false;
             }
