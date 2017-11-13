@@ -4,11 +4,18 @@ import qs from "./middlewares/qs";
 import products from "./routes/products";
 import users from "./routes/users";
 import bodyParser from "body-parser";
-const app = express();
+import auth from "./routes/auth";
+import checktoken from "./middlewares/check-token";
+import passportAuthentication from "./routes/passport";
 
+const app = express();
 app.use(cookieParser());
 app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: false }));
 app.use(qs);
+//app.use("/api/products", products);
+app.use(auth);
+app.use(passportAuthentication);
+app.use("*", checktoken);
 app.use("/api/products",products);
-
 export default app;
