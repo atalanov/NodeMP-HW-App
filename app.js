@@ -7,6 +7,7 @@ import bodyParser from "body-parser";
 import auth from "./routes/auth";
 import checktoken from "./middlewares/check-token";
 import passportAuthentication from "./routes/passport";
+import Sequelize from "sequelize";
 
 const app = express();
 app.use(cookieParser());
@@ -16,6 +17,7 @@ app.use(qs);
 //app.use("/api/products", products);
 app.use(auth);
 app.use(passportAuthentication);
+app.use("/api/users", users);
 app.use("*", checktoken);
-app.use("/api/products",products);
+app.use("/api/products", products);
 export default app;

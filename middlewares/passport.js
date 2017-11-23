@@ -3,6 +3,7 @@ import {Strategy as LocalStrategy} from "passport-local";
 import {Strategy as FacebookStrategy} from "passport-facebook";
 import {Strategy as TwitterStrategy} from "passport-twitter";
 import {Strategy as GoogleStrategy} from "passport-google";
+import user from "../models/user";
 
 /*configuration*/
 const FACEBOOK_APP_ID="144384849521405",
@@ -17,12 +18,7 @@ passport.use(new LocalStrategy({
     passwordField: "password",
     session:false
 }, function(username, password, done){
-    let user = {
-        id: 1,
-        name: "admin",
-        password: "admin",
-        fullName: "Admin Adminov"
-    };
+    let user = user.get(request.body.username);
     if(username!=user.name || password!=user.password){
         done(null, false, "I can't explain your unavailability to enter admin/admin");
     } else{
