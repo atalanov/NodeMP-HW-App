@@ -1,29 +1,40 @@
-let mock =[
-    {
-        id:0,
-        name:"Product0"
-    },
-    {
-        id:1,
-        name:"Product1"
-    }
-];
+import dbProduct from "../../database/product";
+import {Importer} from "../../importer";
+
 export default class Product{
     constructor(){
         console.log("Product module");
     }
-    static get(id){
+    static get(callback,id){
         if(id){
-            return mock[id];
+            return dbProduct.findById(id).then((data)=>{
+                  callback(JSON.stringify(data));
+                });
         }
-        return mock;
+        return dbProduct.findAll().then(function(data){
+            callback(JSON.stringify(data));
+        });
     }
     static add(product){
-        mock.push(product);
+        dbProduct.create({
+            name: product.name,
+            brand:product.brand,
+            company:product.company,
+            price:product.price,
+            isbn:product.isbn
+        });
         return product;
     }
     static getReviews(){
         return "Many-many reviews";
+    }
+    static sync(){
+        const importer = new Importer();
+        console.log("insertion started");
+        importer.import("data/1.csv").then(function(data){
+            return dbProduct.bulkCreate(JSON.parse(data));
+        });
+        return true;
     }
 }
 
