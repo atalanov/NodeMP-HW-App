@@ -1,40 +1,39 @@
-import dbProduct from "../../database/product";
+import {Product as dbProduct} from "../../mongo-models/product";
 import {Importer} from "../../importer";
 
 export default class Product{
     constructor(){
         console.log("Product module");
     }
-    static get(callback,id){
+    static async get(id){
         if(id){
-            return dbProduct.findById(id).then((data)=>{
-                  callback(JSON.stringify(data));
-                });
+            return await dbProduct.findById(id).exec();
         }
-        return dbProduct.findAll().then(function(data){
-            callback(JSON.stringify(data));
-        });
+        return await dbProduct.find().exec();
     }
-    static add(product){
-        dbProduct.create({
+    static async add(product){
+        return await dbProduct.create({
             name: product.name,
             brand:product.brand,
             company:product.company,
             price:product.price,
             isbn:product.isbn
         });
-        return product;
     }
     static getReviews(){
         return "Many-many reviews";
     }
-    static sync(){
+    static async sync(){
         const importer = new Importer();
         console.log("insertion started");
-        importer.import("data/1.csv").then(function(data){
-            return dbProduct.bulkCreate(JSON.parse(data));
+        return await importer.import("data/1.csv").then(function(data){
+            return dbProduct.create(JSON.parse(data));
         });
-        return true;
+    }
+    static async delete(id){
+        return await dbProduct.remove({
+            _id:id
+        }).exec();
     }
 }
 
