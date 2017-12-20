@@ -2,23 +2,23 @@ import express from "express";
 import {Product as product} from "../models";
 const router = express.Router();
 
-router.get("/", function(request,response){
-    response.send(JSON.stringify(product.get()));
+router.get("/", async function(request,response){
+    response.send(JSON.stringify(await product.get()));
 });
-router.get("/:id",function(request,response){
-    response.send(JSON.stringify(product.get(request.params.id)));
+router.get("/:id", async function(request,response){
+    response.send(JSON.stringify(await product.get(request.params.id)));
 });
-router.get("/:id/reviews",function(request,response){
-    response.send(product.getReviews(request.params.id));
+router.get("/:id/reviews",async function(request,response){
+    response.send(await product.getReviews(request.params.id));
 });
-router.post("/",function(request,response){
-    response.send(product.add(request.body));
+router.post("/",async function(request,response){
+    response.send(await product.add(request.body));
 });
-router.post("/sync",function(request,response){
-    response.send(product.sync());
+router.post("/sync",async function(request,response){
+    response.send(await product.sync());
 });
-router.delete("/:id",function(request,response){
-    response.send(product.delete(request.params.id));
+router.delete("/:id",async function(request,response){
+    response.send(await product.delete(request.params.id));
 })
 
 export default router;

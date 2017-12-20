@@ -10,6 +10,7 @@ import auth from "./routes/auth";
 import checktoken from "./middlewares/check-token";
 import passportAuthentication from "./routes/passport";
 import Sequelize from "sequelize";
+import cors from "cors";
 const app = express();
 const connectionString = 'mongodb://localhost:27017/nodejs-edu';
 mongoose.connect(connectionString,{
@@ -19,15 +20,16 @@ let db = mongoose.connection;
 mongoose.Promise = global.Promise;
 db.on('error', console.error.bind(console, 'MongoDB connection error:'));
 
-
+app.use(cors());
+  
 app.use(cookieParser());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(qs);
-app.use(auth);
-app.use(passportAuthentication);
+//app.use(auth);
+//app.use(passportAuthentication);
 app.use("/api/users", users);
-app.use("*", checktoken);
+//app.use("*", checktoken);
 app.use("/api/products", products);
 app.use("/api/cities", cities);
 export default app;
