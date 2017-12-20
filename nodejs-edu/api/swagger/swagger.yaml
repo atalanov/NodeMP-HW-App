@@ -1,0 +1,233 @@
+swagger: '2.0'
+info:
+  version: '1.0.0'
+  title: 'Test'
+  description: 'Test'
+host: localhost:8080
+basePath: /api
+paths: 
+  /auth:
+    post:
+      tags:
+      - Auth
+      description: Test
+      summary: Test
+      parameters:
+        - name: username
+          in: formData 
+          required: true
+          type: string
+          default: admin
+        - name: password
+          in: formData
+          required: true
+          type: string
+          default: admin
+      responses:
+        200:
+          description: Test
+      consumes: 
+        - application/x-www-form-urlencoded
+      produces: 
+        - application/json
+  /cities:
+    get:
+      tags: 
+       - Cities
+      description: Cities
+      summary: Get Cities List
+      responses:
+        200:
+          description: Cities
+    post:
+      tags:
+        - Cities
+      description: Add city
+      summary: Add city
+      responses:
+        200:
+          description: Added
+  /cities/{id}:
+    delete:
+      tags:
+       - Cities
+      description: Delete selected city from db
+      summary: delete
+      parameters:
+        - name: id
+          in: path
+          required: true
+          type: string
+      responses:
+        200:
+          description: deleted
+    put: 
+      tags:
+        - Cities
+      description: Create or update city
+      summary: create or update
+      consumes: 
+        - application/x-www-form-urlencoded
+      parameters:
+        - name: id
+          in: path
+          required: true
+          type: string
+          default: 5a3acd9e909333809453c73d
+        - name: name
+          in: formData
+          type: string
+          default: Minsk
+          required: true
+        - name: country
+          in: formData
+          type: string
+          default: Belarus
+          required: true
+        - name: capital
+          in: formData
+          type: string
+          default: "false"
+          required: true
+        - name: location.lat
+          in: formData
+          type: string
+          default: "10"
+          required: true
+        - name: location.lon
+          in: formData
+          type: string
+          default: "11"
+          required: true
+      responses:
+        200:
+          description: -updated or created.
+  /products/{id}/reviews:
+    get:
+      tags:
+       - Products
+      description: Get reviews
+      summary: Get reviews
+      parameters:
+        - name: id
+          in: path
+          required: true
+          type: string
+          default: 5a3acd9e909333809453c73d
+      responses:
+        200:
+          description: returns data
+  /products/sync:
+    post:
+      tags:
+        - Products
+      description: starts syncronisation
+      summary: start sync
+      responses:
+        200:
+          description: done
+  /products:
+    get:
+      tags:
+        - Products
+      description: get all products
+      summary: get all products
+      responses:
+        200: 
+          description: json object with products' data
+    post:
+      tags:
+        - Products
+      description: sends json product object to be added to db
+      summary: add product to db
+      consumes: 
+        - application/x-www-form-urlencoded
+      parameters:
+        - name: name
+          in: formData
+          type: string
+          default: "Antipohmelin"
+          required: true
+        - name: brand
+          in: formData
+          type: string
+          default: "Antipohmelin"
+          required: true
+        - name: company
+          in: formData
+          type: string
+          default: "Babushka"
+          required: true
+        - name: price
+          in: formData
+          type: string
+          default: "Free of charge"
+          required: true
+        - name: isbn
+          in: formData
+          type: string
+          required: true
+          default: "ISBN"
+      responses:
+        200: 
+          description: added
+  /products/{id}:
+    get:
+      tags:
+        - Products
+      description: get product by id
+      summary: get product by id
+      parameters:
+        - name: id
+          in: path
+          required: true
+          type: string
+      responses:
+        200:
+          description: product data
+    delete:
+      tags:
+        - Products
+      description: delete product
+      summary: delete product
+      parameters:
+        - name: id
+          in: path
+          required: true
+          type: string
+      responses:
+        200:
+          description: deleted
+  /users:
+    get:
+      tags:
+       - Users
+      description: get users list
+      summary: get list
+      responses:
+        200:
+          description: list of users data
+  /users/register:
+    post:
+      tags:
+        - Users
+      description: register new users
+      summary: add user
+      responses:
+        200:
+          description: user added
+  /users/{name}:
+    delete:
+      tags:
+        - Users
+      description: delete user by name
+      summary: delete user
+      responses:
+        200:
+          description: deleted
+      parameters:
+        - name: name
+          in: path
+          required: true
+          type: string
+        

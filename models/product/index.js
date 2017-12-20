@@ -9,7 +9,10 @@ export default class Product{
         if(id){
             return await dbProduct.findById(id).exec();
         }
-        return await dbProduct.find().exec();
+        console.log("test");
+        let list = await dbProduct.find().exec();
+        //console.log(list);
+        return list;
     }
     static async add(product){
         return await dbProduct.create({
